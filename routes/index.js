@@ -24,6 +24,10 @@ router.get('/', function(req, res) {
 	})
 });
 
+/* POST a new message. */
+router.post('/', function(req, res) {
+});
+
 /* GET clear page. */
 router.get('/clear', function(req, res) {
 	db.getConnection(function(err, db) {
