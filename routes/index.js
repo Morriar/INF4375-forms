@@ -7,6 +7,21 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET clear page. */
+router.get('/clear', function(req, res) {
+	db.getConnection(function(err, db) {
+		db.collection("messages", function(err, messages_coll){
+			if(err) {
+				res.status(500);
+				res.send();
+			} else {
+				messages_coll.drop()
+				res.render('index', { title: '5chanz' });
+			}
+		})
+	})
+});
+
 var populateDB = function() {
 	var messages = [
         {
