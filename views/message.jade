@@ -1,0 +1,12 @@
+div
+	h3= message.title
+
+	h5
+		if message.anonymous
+			span= "anonymous"
+		else
+			span= message.mail
+		&nbsp;-&nbsp;
+		span= message.date.toISOString()
+
+	p= message.body

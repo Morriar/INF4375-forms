@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	hr
+
+	if messages
+		each message in messages
+			include message.jade
+	else
+		p No messages yet!
+
+	hr
+	include message_form.jade
