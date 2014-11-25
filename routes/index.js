@@ -2,9 +2,26 @@ var express = require('express');
 var router = express.Router();
 var db = require('./db');
 
-/* GET home page. */
+/* GET home page: list all messages. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+	db.getConnection(function(err, db) {
+		db.collection("messages", function(err, messages_coll){
+			if(err) {
+				res.status(500);
+				res.send();
+			} else {
+				messages_coll.find().toArray(function(err, messages) {
+					if(err) {
+						res.status(500);
+						res.send();
+					} else {
+						res.render('index', { title: '5chanz', messages: messages });
+						return
+					}
+				})
+			}
+		})
+	})
 });
 
 /* GET clear page. */
