@@ -1,1 +1,27 @@
 h2 Post a new message
+
+form(action="/", method="POST")
+	table
+		tr
+			td Mail:
+			td
+				input(type="email", name="mail")
+		tr
+			td Anonymous?
+			td
+				input#anon_false(type="radio", name="anonymous", value="false", checked="checked")
+				label(for="anon_false") no
+				input#anon_true(type="radio", name="anonymous", value="true")
+				label(for="anon_true") yes
+		tr
+			td Title:
+			td
+				input(type="text", name="title")
+		tr
+			td(colspan="2") Message:
+		tr
+			td(colspan="2")
+				textarea(name="body")
+		tr
+			td(colspan="2")
+				input(type="submit", value="Post message!")

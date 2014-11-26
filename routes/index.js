@@ -26,6 +26,43 @@ router.get('/', function(req, res) {
 
 /* POST a new message. */
 router.post('/', function(req, res) {
+	var message = req.body;
+	message.anonymous = message.anonymous === "true"
+	if(!message.mail) {
+		res.status(400)
+		res.send("Invalid email");
+		return;
+	}
+	if(!message.title) {
+		res.status(400)
+		res.send("Invalid title");
+		return;
+	}
+	if(!message.body) {
+		res.status(400)
+		res.send("Invalid message body");
+		return;
+	}
+	message.date = new Date();
+	db.getConnection(function(err, db) {
+		db.collection("messages", function(err, messages_coll){
+			if(err) {
+				console.log(err);
+				res.status(500);
+				res.send("Internal server error");
+				return
+			}
+			messages_coll.insert(message, function(err, result) {
+				if(err) {
+					console.log(err);
+					res.status(500);
+					res.send("Internal server error");
+					return
+				}
+				res.redirect('/');
+			});
+		})
+	})
 });
 
 /* GET clear page. */
